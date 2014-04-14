@@ -7,8 +7,6 @@
 
 (function ($) {
     function initialize($obj, support, title, text, upgradeTitle, upgradeLink, overlayClose, closeBtn) {
-    
-    
         var panel = "<div class='ie-l-t-c'></div>"
             + "<div class='ie-t'></div>"
             + "<div class='ie-r-t-c'></div>"
@@ -54,7 +52,7 @@
             if (closeBtn === false) {
                 ieBtn.css('background-position', '-145px -58px');
                 ieBtn.click(function (e) {
-                   e.preventDefault();
+                    e.preventDefault();
                 });
             } else {
                 ieBtn.click(function () {
@@ -97,46 +95,39 @@
 
     }
 
-    ; //end initialize function
-
     $.fn.iealert = function (options) {
         var defaults = {
-            support:"ie8",
-            title:"Did you know that your Internet Explorer is out of date?",
-            text:"To get the best possible experience using our site we recommend that you upgrade to a modern web browser. To download a newer web browser click on the Upgrade button.",
-            upgradeTitle:"Upgrade",
-            upgradeLink:"http://browsehappy.com/",
-            overlayClose:false,
+            support: "ie8",
+            title: "Did you know that your Internet Explorer is out of date?",
+            text: "To get the best possible experience using our site we recommend that you upgrade to a modern web browser. To download a newer web browser click on the Upgrade button.",
+            upgradeTitle: "Upgrade",
+            upgradeLink: "http://browsehappy.com/",
+            overlayClose: false,
             closeBtn: true
         };
 
         var option = $.extend(defaults, options);
 
         return this.each(function () {
-        	
-	    	ie = (function(){
-	 
-			    var undef,
-			        v = 3,
-			        div = document.createElement('div'),
-			        all = div.getElementsByTagName('i');
-			    
-			    while (
-			        div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
-			        all[0]
-			    );
-			    
-			    return v > 4 ? v : undef;
-	    
-	    	 }());
 
-	    	 // If browser is Internet Explorer
-             if (ie >= 5) {
+            ie = (function () {
+                var v = 3,
+                    div = document.createElement('div'),
+                    all = div.getElementsByTagName('i');
+
+                while (
+                    div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
+                    all[0]
+                );
+
+                return v > 4 ? v : null;
+            }());
+
+            // If browser is Internet Explorer
+            if (ie >= 5) {
                 var $this = $(this);
                 initialize($this, option.support, option.title, option.text, option.upgradeTitle, option.upgradeLink, option.overlayClose, option.closeBtn);
-             }
-
+            }
         });
-
     };
 })(jQuery);
