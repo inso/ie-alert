@@ -7,6 +7,10 @@
 
 (function ($) {
     function initialize($obj, ie, options) {
+        if (options.beforeInitialize.call($obj, ie) === false) {
+            return;
+        }
+
         var panel = "<div class='ie-l-t-c'></div>"
             + "<div class='ie-t'></div>"
             + "<div class='ie-r-t-c'></div>"
@@ -102,7 +106,8 @@
             upgradeTitle: "Upgrade",
             upgradeLink: "http://browsehappy.com/",
             overlayClose: false,
-            closeBtn: true
+            closeBtn: true,
+            beforeInitialize: $.noop
         }
     };
 
