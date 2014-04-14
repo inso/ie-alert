@@ -94,8 +94,8 @@
         }
     }
 
-    $.fn.iealert = function (options) {
-        var defaults = {
+    $.iealert = {
+        defaults: {
             support: "ie8",
             title: "Did you know that your Internet Explorer is out of date?",
             text: "To get the best possible experience using our site we recommend that you upgrade to a modern web browser. To download a newer web browser click on the Upgrade button.",
@@ -103,9 +103,11 @@
             upgradeLink: "http://browsehappy.com/",
             overlayClose: false,
             closeBtn: true
-        };
+        }
+    };
 
-        var option = $.extend(defaults, options);
+    $.fn.iealert = function (options) {
+        var option = $.extend({}, $.iealert.defaults, options);
 
         return this.each(function () {
             var ie = (function () {
