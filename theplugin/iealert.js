@@ -6,19 +6,19 @@
  */
 
 (function ($) {
-    function initialize($obj, support, title, text, upgradeTitle, upgradeLink, overlayClose, closeBtn) {
+    function initialize($obj, ie, options) {
         var panel = "<div class='ie-l-t-c'></div>"
             + "<div class='ie-t'></div>"
             + "<div class='ie-r-t-c'></div>"
             + "<div class='ie-l'></div>"
             + "<div class='ie-c'>"
-            + "<span class='ie-span'>" + title + "</span>"
-            + "<p class='ie-p'>" + text + "</span>"
+            + "<span class='ie-span'>" + options.title + "</span>"
+            + "<p class='ie-p'>" + options.text + "</span>"
             + "<div class='ie-u'>"
             + "<div class='ie-u-l'></div>"
-            + "<a href='" + upgradeLink + "' target='_blank'>"
+            + "<a href='" + options.upgradeLink + "' target='_blank'>"
             + "<div class='ie-u-c'>"
-            + "<span class='ie-u-s'>" + upgradeTitle + "</span>"
+            + "<span class='ie-u-s'>" + options.upgradeTitle + "</span>"
             + "</div>"
             + "</a>"
             + "<div class='ie-u-r'></div>"
@@ -49,7 +49,7 @@
             var ieOverlay = $('#ie-alert-overlay');
             var ieBtn = $(".ie-r-t-c");
 
-            if (closeBtn === false) {
+            if (!options.closeBtn) {
                 ieBtn.css('background-position', '-145px -58px');
                 ieBtn.click(function (e) {
                     e.preventDefault();
@@ -61,7 +61,7 @@
                 });
             }
 
-            if (overlayClose === true) {
+            if (options.overlayClose) {
                 ieOverlay.click(function () {
                     iePanel.fadeOut(100);
                     $(this).fadeOut("slow");
@@ -75,24 +75,23 @@
             }
         }
 
-        if (support === "ie9") {            // the modal box will appear on IE9, IE8, IE7, IE6
+        if (options.support === "ie9") {            // the modal box will appear on IE9, IE8, IE7, IE6
             if (ie < 10) {
                 active();
             }
-        } else if (support === "ie8") {     // the modal box will appear on IE8, IE7, IE6
+        } else if (options.support === "ie8") {     // the modal box will appear on IE8, IE7, IE6
             if (ie < 9) {
                 active();
             }
-        } else if (support === "ie7") {     // the modal box will appear on IE7, IE6
+        } else if (options.support === "ie7") {     // the modal box will appear on IE7, IE6
             if (ie < 8) {
                 active();
             }
-        } else if (support === "ie6") {     // the modal box will appear only on IE6 and below
+        } else if (options.support === "ie6") {     // the modal box will appear only on IE6 and below
             if (ie < 7) {
                 active();
             }
         }
-
     }
 
     $.fn.iealert = function (options) {
@@ -109,8 +108,7 @@
         var option = $.extend(defaults, options);
 
         return this.each(function () {
-
-            ie = (function () {
+            var ie = (function () {
                 var v = 3,
                     div = document.createElement('div'),
                     all = div.getElementsByTagName('i');
@@ -125,8 +123,7 @@
 
             // If browser is Internet Explorer
             if (ie >= 5) {
-                var $this = $(this);
-                initialize($this, option.support, option.title, option.text, option.upgradeTitle, option.upgradeLink, option.overlayClose, option.closeBtn);
+                initialize($(this), ie, option);
             }
         });
     };
