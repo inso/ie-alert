@@ -1,4 +1,4 @@
-/*
+/*!
  * IE Alert! jQuery plugin
  * Version 2.1
  * Author: David Nemes | @nmsdvid
